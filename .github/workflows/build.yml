@@ -16,22 +16,14 @@ jobs:
           java-version: '17'
           distribution: 'temurin'
 
-      # 使用官方 Android SDK 设置 Action（v3 稳定版）
       - name: Setup Android SDK
         uses: android-actions/setup-android@v3
 
-      # 增加 Gradle 内存限制，防止 OOM
-      - name: Configure Gradle Memory
+      - name: Build APK using system gradle
         run: |
-          echo "org.gradle.jvmargs=-Xmx3g -XX:MaxMetaspaceSize=512m" >> gradle.properties
+          # 使用系统安装的 gradle 命令直接构建
+          gradle assembleDebug --stacktrace --info
 
-      # 构建 APK
-      - name: Build with Gradle
-        run: |
-          chmod +x gradlew
-          ./gradlew assembleDebug --stacktrace --info
-
-      # 上传 APK
       - name: Upload APK
         uses: actions/upload-artifact@v4
         with:
