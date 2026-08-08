@@ -15,6 +15,6 @@ allprojects {
     }
 }
 
-task clean(类型: Delete) {
+task clean(type: Delete) {
     delete rootProject.buildDir
 }
